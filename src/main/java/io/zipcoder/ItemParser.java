@@ -30,7 +30,7 @@ public class ItemParser {
         List<String> jerksonPairs = getKeyValueStrings(singleItem);
         Map<String, String> fieldMap = getKeyValuePairs(jerksonPairs);
 
-        String name = fieldMap.get("name").toLowerCase();
+        String name = Pattern.compile("0").matcher(fieldMap.get("name").toLowerCase()).replaceAll("o");
         String type = fieldMap.get("type").toLowerCase();
         String expiration = fieldMap.get("expiration").toLowerCase();
         Double price;
@@ -51,6 +51,7 @@ public class ItemParser {
     protected List<String> getKeyValueStrings(String jerksonObject) throws ItemParseException {
         String[] jerksonStringArray = Pattern.compile(";").split(jerksonObject);
         if(jerksonStringArray.length != NUMBEROFITEMFIELDS){
+            System.out.println(jerksonObject);
             throw new ItemParseException();
         }
         else{
